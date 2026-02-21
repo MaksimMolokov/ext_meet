@@ -1,0 +1,51 @@
+{
+  "manifest_version": 3,
+  "name": "Meeting Audio Recorder",
+  "description": "Records tab audio for Google Meet and Zoom Web meetings. WebM format with Opus codec.",
+  "version": "0.1.0",
+  "permissions": [
+    "activeTab",
+    "tabCapture",
+    "desktopCapture",
+    "offscreen",
+    "downloads",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://meet.google.com/*",
+    "https://*.zoom.us/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Meeting Audio Recorder - Click to control",
+    "default_popup": "popup.html",
+    "default_icons": {
+      "16": "images/icon-16.png",
+      "48": "images/icon-48.png",
+      "128": "images/icon-128.png"
+    }
+  },
+  "icons": {
+    "16": "images/icon-16.png",
+    "48": "images/icon-48.png",
+    "128": "images/icon-128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://meet.google.com/*"
+      ],
+      "js": ["scrapingScript.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["offscreen.html"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
